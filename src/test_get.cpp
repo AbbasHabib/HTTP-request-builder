@@ -17,8 +17,10 @@ int main(int argc, char *argv[])
                                 .build();
 
     if (httpRequest->send() == CURLE_OK)
-        std::cout << "\n[" << httpRequest->getResponse() << "]\n";
-
+    {
+        std::cout << "[" << httpRequest->getResponse() << "]\n";
+        std::cout << "[" << httpRequest->getResponseHeader() << "]\n";
+    }
     HttpRequest::cleanHttpRequestsGlobal();
 
 }

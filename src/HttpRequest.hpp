@@ -15,16 +15,16 @@ private:
     //!         it's an atomic operation to avoid multiple initialization
     //!         if concurrent access occurred
     static std::atomic<bool> s_isGloballyInitialized;
-    static size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string *data);
-    
+
 protected:
     //! @brief CURL pointer used to initialize request params
     CURL *m_curlPtr{nullptr};
     //! @brief Http Request headers
     struct curl_slist* m_headers{NULL};
-    //! @brief latest response inserted inside the responseString
+    //! @brief response inserted inside the responseString
     std::string m_responseString{};
-
+    //! @brief response header inside the responseString
+    std::string m_responseHeaderString{};
 public:
 
     static void initHttpRequestsGlobal();
@@ -46,6 +46,10 @@ public:
     //! @brief sends GetRequestClient
     //! @return return response string
     const std::string getResponse();
+
+    //! @brief sends GetRequestClient
+    //! @return return response header string
+    const std::string getResponseHeader();
 
     //! @brief sends GetRequestClient
     //! @return true if succeed

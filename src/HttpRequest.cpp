@@ -4,6 +4,20 @@
 
 std::atomic<bool> HttpRequest::s_isGloballyInitialized{false};
 
+static size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string *data)
+{
+    data->append((char *)ptr, size * nmemb);
+    return size * nmemb;
+}
+
+static size_t headerCallback(char* buffer, size_t size,
+    size_t nitems, void* userdata)
+{
+    std::string *headers = (std::string*) userdata;
+    headers->append(buffer, nitems * size);
+    return nitems * size;
+}
+
 HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
 {
     if (!m_curlPtr)
@@ -18,10 +32,16 @@ HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
 
     //! send to url
     curl_easy_setopt(m_curlPtr, CURLOPT_URL, url.c_str());
+    // //! add header in response string
+    // curl_easy_setopt(m_curlPtr, CURLOPT_HEADER, 1L);
     //! HttpRequest::writeFunction get's called with response data
     curl_easy_setopt(m_curlPtr, CURLOPT_WRITEFUNCTION, writeFunction);
     //! data inserted inside m_responseString
     curl_easy_setopt(m_curlPtr, CURLOPT_WRITEDATA, &m_responseString);
+    //! call back for header in response
+    curl_easy_setopt(m_curlPtr, CURLOPT_HEADERFUNCTION, headerCallback);
+    //! store response's header in m_responseHeaderString
+    curl_easy_setopt(m_curlPtr, CURLOPT_HEADERDATA, &m_responseHeaderString);
     //! curl version
     curl_easy_setopt(m_curlPtr, CURLOPT_USERAGENT, std::string(std::string("curl/") + curl_version_info(CURLVERSION_NOW)->version).c_str());
     //! HTTP version
@@ -80,12 +100,10 @@ const std::string HttpRequest::getResponse()
     return m_responseString;
 }
 
-size_t HttpRequest::writeFunction(void *ptr, size_t size, size_t nmemb, std::string *data)
+const std::string HttpRequest::getResponseHeader()
 {
-    data->append((char *)ptr, size * nmemb);
-    return size * nmemb;
+    return m_responseHeaderString;
 }
-
 
 HttpRequest::~HttpRequest()
 {
