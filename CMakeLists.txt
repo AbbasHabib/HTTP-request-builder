@@ -18,6 +18,8 @@ add_executable(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/GetRequestClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequestBuilder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PostRequestClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/PutRequestClient.cpp
     )
 
 include_directories(${curl_installation_dir}/include/curl ${curl_installation_dir}/lib/)
