@@ -24,9 +24,9 @@ HttpRequestBuilder::HttpRequestBuilder(REQUEST_TYPE requestType, const std::stri
     m_httpRequest->init();
 }
 
-HttpRequestBuilder& HttpRequestBuilder::addDataToHeader(const std::string& data)
+HttpRequestBuilder& HttpRequestBuilder::addDataToHeader(const std::string& key, const std::string& value)
 {
-    m_httpRequest->addDataToHeader(data);
+    m_httpRequest->addDataToHeader(key + ": " + value);
     return *this;
 }
 
@@ -42,6 +42,13 @@ HttpRequestBuilder& HttpRequestBuilder::addDataToBody(const std::string& data)
     m_httpRequest->addDataToBody(std::make_shared<std::string>(data));
     return *this;
 }
+
+HttpRequestBuilder& HttpRequestBuilder::addDataToBody(std::string&& data)
+{
+    m_httpRequest->addDataToBody(std::make_shared<std::string>(std::move(data)));
+    return *this;
+}
+
 
 std::unique_ptr<HttpRequest> HttpRequestBuilder::build()
 {

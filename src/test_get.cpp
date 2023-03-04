@@ -5,25 +5,31 @@
 
 static constexpr char CONTENT_TYPE_JSON[] = "Content-Type: application/json";
 
-int main(int argc, char *argv[])
-{
 
-    HttpRequestBuilder HttpBuilder(HttpRequestBuilder::PUT_REQUEST, "https://abbas.requestcatcher.com/test");
+void sendRequest()
+{
+    HttpRequestBuilder HttpBuilder(HttpRequestBuilder::POST_REQUEST, "https://abbas.requestcatcher.com/test");
 
     std::string jsonObj = "{ \"name\" : \"abbas\" , \"age\" : \"55\" }";
-    
+    std::string ff = "TOKEN";
     std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
-                                .addDataToHeader("Accept: application/json")
-                                .addDataToHeader("Content-Type: application/json")
-                                .addDataToHeader("charset: utf-8")
-                                .addDataToBody(jsonObj)
+                                .addJWTtokenToHeader(ff)
+                                .addDataToBody(std::move(jsonObj))
+                                .addDataToHeader("head", "data1")
                                 .build();
+
+    std::cout << jsonObj << '\n';
 
     if (httpRequest->send() == CURLE_OK)
     {
         std::cout << "[" << httpRequest->getResponse() << "]\n";
         std::cout << "[" << httpRequest->getResponseHeader() << "]\n";
     }
+}
+
+int main(int argc, char *argv[])
+{
+    sendRequest();
  
     HttpRequest::cleanHttpRequestsGlobal();
 }

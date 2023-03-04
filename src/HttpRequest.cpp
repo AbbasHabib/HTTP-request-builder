@@ -45,6 +45,9 @@ HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
     curl_easy_setopt(m_curlPtr, CURLOPT_USERAGENT, std::string(std::string("curl/") + curl_version_info(CURLVERSION_NOW)->version).c_str());
     //! HTTP version
     // curl_easy_setopt(m_curlPtr, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    m_headers = curl_slist_append(m_headers, "Accept: application/json");
+    m_headers = curl_slist_append(m_headers, "Content-Type: application/json");
+    m_headers = curl_slist_append(m_headers, "charset: utf-8");
 
     std::cout << "new request client\n";
 }

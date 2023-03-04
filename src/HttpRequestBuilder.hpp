@@ -16,9 +16,21 @@ public:
     };
 
     HttpRequestBuilder(REQUEST_TYPE requestType, const std::string& url);
-    HttpRequestBuilder& addDataToHeader(const std::string& data);
+    //! @brief  insert data to header
+    //! @param  key string containing header key
+    //! @param  value string header key value
+    HttpRequestBuilder& addDataToHeader(const std::string& key, const std::string& value);
+    //! @brief  insert jwt token to header
+    //! @param  jwtToken string containing body data
     HttpRequestBuilder& addJWTtokenToHeader(const std::string& jwtToken);
+    //! @brief  insert body data take care data is copied better use std::move(data)
+    //! @param  data string containing body data
     HttpRequestBuilder& addDataToBody(const std::string& data);
+    //! @brief  insert body data take care data is copied better use std::move(data)
+    //! @param  data string containing body data
+    HttpRequestBuilder& addDataToBody(std::string&& data);
+    //! @brief  build the HttpRequest
+    //! @return unique pointer to the build http request
     std::unique_ptr<HttpRequest> build();
 
 };

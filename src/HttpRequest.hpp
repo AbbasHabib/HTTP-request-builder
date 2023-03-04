@@ -19,7 +19,7 @@ private:
 
 protected:
     //! @brief CURL pointer used to initialize request params
-    CURL *m_curlPtr{nullptr};
+    CURL* m_curlPtr{nullptr};
     //! @brief Http Request headers
     struct curl_slist* m_headers{nullptr};
     //! @brief response inserted inside the responseString
