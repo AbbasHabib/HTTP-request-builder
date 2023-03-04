@@ -10,10 +10,13 @@ int main(int argc, char *argv[])
 
     HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.requestcatcher.com/test");
 
+    std::string jsonObj = "{ \"name\" : \"Pedro\" , \"age\" : \"22\" }";
+    
     std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
-                                .addDataToHeader("some-header: well")
-                                .addJWTtokenToHeader("token")
-                                .addDataToHeader(CONTENT_TYPE_JSON)
+                                .addDataToHeader("Accept: application/json")
+                                .addDataToHeader("Content-Type: application/json")
+                                .addDataToHeader("charset: utf-8")
+                                .addDataToBody(jsonObj)
                                 .build();
 
     if (httpRequest->send() == CURLE_OK)
@@ -21,6 +24,6 @@ int main(int argc, char *argv[])
         std::cout << "[" << httpRequest->getResponse() << "]\n";
         std::cout << "[" << httpRequest->getResponseHeader() << "]\n";
     }
+ 
     HttpRequest::cleanHttpRequestsGlobal();
-
 }

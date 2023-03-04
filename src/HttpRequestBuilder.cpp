@@ -37,7 +37,7 @@ HttpRequestBuilder& HttpRequestBuilder::addJWTtokenToHeader(const std::string& j
 
 HttpRequestBuilder& HttpRequestBuilder::addDataToBody(const std::string& data)
 {
-    // m_httpRequest->addJWTtokenToHeader(data);
+    m_httpRequest->addDataToBody(std::make_shared<std::string>(data));
     return *this;
 }
 

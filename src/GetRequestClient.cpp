@@ -17,11 +17,6 @@ bool GetRequestClient::init()
         std::cout << "curl_easy_init failed !! \n";
         return false;
     }
-    curl_easy_setopt(m_curlPtr, CURLOPT_HTTPGET, 1L);
-    //! switch off the progress meter
-    curl_easy_setopt(m_curlPtr, CURLOPT_NOPROGRESS, 1L);
-    //! maximum number of redirects
-    curl_easy_setopt(m_curlPtr, CURLOPT_MAXREDIRS, 50L);
-    
+    curl_easy_setopt(m_curlPtr, CURLOPT_CUSTOMREQUEST, "GET");    
     return true;
 }

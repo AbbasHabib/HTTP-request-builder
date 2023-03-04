@@ -1,5 +1,6 @@
 #include "HttpRequest.hpp"
 #include <string>
+#include <memory>
 
 
 std::atomic<bool> HttpRequest::s_isGloballyInitialized{false};
@@ -45,7 +46,7 @@ HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
     //! curl version
     curl_easy_setopt(m_curlPtr, CURLOPT_USERAGENT, std::string(std::string("curl/") + curl_version_info(CURLVERSION_NOW)->version).c_str());
     //! HTTP version
-    curl_easy_setopt(m_curlPtr, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    // curl_easy_setopt(m_curlPtr, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
     std::cout << "new request client\n";
 }
@@ -55,7 +56,7 @@ void HttpRequest::initHttpRequestsGlobal()
     if (!s_isGloballyInitialized)
     {
         std::cout << "Global init !!\n";
-        curl_global_init(CURL_GLOBAL_DEFAULT);
+        curl_global_init(CURL_GLOBAL_ALL);
         s_isGloballyInitialized = true;
     }
 }
@@ -72,6 +73,12 @@ void HttpRequest::addDataToHeader(const std::string& data)
     //! this returns a linked list
     //! assign the net ll to headers list
     m_headers = curl_slist_append(m_headers, data.c_str());
+}
+
+void HttpRequest::addDataToBody(const std::shared_ptr<std::string>& bodyData)
+{
+    requestBodyContent = bodyData;
+    curl_easy_setopt(m_curlPtr, CURLOPT_POSTFIELDS, requestBodyContent.get()->c_str());
 }
 
 void HttpRequest::addJWTtokenToHeader(const std::string& jwtToken)

@@ -4,6 +4,7 @@
 #include <curl/curl.h>
 #include <iostream>
 #include <atomic>
+#include <memory>
 
 //! @brief  HttpRequest is an abstract class that
 //!         every Http request type inherit from 
@@ -20,11 +21,12 @@ protected:
     //! @brief CURL pointer used to initialize request params
     CURL *m_curlPtr{nullptr};
     //! @brief Http Request headers
-    struct curl_slist* m_headers{NULL};
+    struct curl_slist* m_headers{nullptr};
     //! @brief response inserted inside the responseString
     std::string m_responseString{};
     //! @brief response header inside the responseString
     std::string m_responseHeaderString{};
+    std::shared_ptr<std::string> requestBodyContent{nullptr};
 public:
 
     static void initHttpRequestsGlobal();
@@ -38,6 +40,11 @@ public:
     //! @brief Add data to Request header
     //! @param data data to be added to request header
     void addDataToHeader(const std::string& data);
+
+    //! @brief  Add data to Request body
+    //! @param  data data to be added to request body
+    //!         take care that data is copied
+    void addDataToBody(const std::shared_ptr<std::string>& data);
 
     //! @brief Add JWT token to Request header
     //! @param jwtToken token to be added to request header
