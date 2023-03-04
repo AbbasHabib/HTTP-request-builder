@@ -9,10 +9,7 @@ class GetRequestClient : public HttpRequest
 public:
     //! @brief default constructor is deleted
     GetRequestClient() = delete;
-
-    //! @brief copy constructor is deleted
-    // GetRequestClient(const GetRequestClient &) = delete;
-
+    
     //! @brief constructor
     //! @param url the url to which the get request is to be sent
     GetRequestClient(std::string url);

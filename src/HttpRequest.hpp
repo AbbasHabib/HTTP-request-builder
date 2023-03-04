@@ -29,22 +29,19 @@ public:
 
     static void initHttpRequestsGlobal();
     static void cleanHttpRequestsGlobal();
-    //! @brief copy constructor is deleted
-    // HttpRequest(const HttpRequest &) = delete;
-    
     //! @brief default constructor is deleted
     HttpRequest() = delete;
     
     //! @brief parameterized constructor
-    HttpRequest(std::string url);
+    HttpRequest(const std::string& url);
 
     //! @brief Add data to Request header
     //! @param data data to be added to request header
-    void addDataToHeader(std::string data);
+    void addDataToHeader(const std::string& data);
 
     //! @brief Add JWT token to Request header
     //! @param jwtToken token to be added to request header
-    void addJWTtokenToHeader(std::string jwtToken);
+    void addJWTtokenToHeader(const std::string& jwtToken);
 
     //! @brief sends GetRequestClient
     //! @return return response string

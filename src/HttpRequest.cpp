@@ -4,7 +4,7 @@
 
 std::atomic<bool> HttpRequest::s_isGloballyInitialized{false};
 
-HttpRequest::HttpRequest(std::string url) : m_curlPtr(curl_easy_init())
+HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
 {
     if (!m_curlPtr)
     {
@@ -47,14 +47,14 @@ void HttpRequest::cleanHttpRequestsGlobal()
     s_isGloballyInitialized = false;
 }
 
-void HttpRequest::addDataToHeader(std::string data)
+void HttpRequest::addDataToHeader(const std::string& data)
 {
     //! this returns a linked list
     //! assign the net ll to headers list
     m_headers = curl_slist_append(m_headers, data.c_str());
 }
 
-void HttpRequest::addJWTtokenToHeader(std::string jwtToken)
+void HttpRequest::addJWTtokenToHeader(const std::string& jwtToken)
 {
     addDataToHeader("Authorization: Bearer " + jwtToken);
 }

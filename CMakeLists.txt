@@ -14,9 +14,11 @@ endif()
 
 
 add_executable(${PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_get.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/GetRequestClient.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/HttpRequest.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/test_get.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/GetRequestClient.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequestBuilder.cpp
+    )
 
 include_directories(${curl_installation_dir}/include/curl ${curl_installation_dir}/lib/)
 

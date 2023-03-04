@@ -1,21 +1,24 @@
-#include "GetRequestClient.hpp"
+#include "HttpRequestBuilder.hpp"
 #include <iostream>
 #include <thread>
 #include <memory>
 
 static constexpr char CONTENT_TYPE_JSON[] = "Content-Type: application/json";
 
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    std::unique_ptr<HttpRequest> getReq = std::make_unique<GetRequestClient>("https://abbas.requestcatcher.com/test");
 
-    getReq->init();
-    getReq->addDataToHeader("someheader: well");
-    getReq->addDataToHeader(CONTENT_TYPE_JSON);
-    getReq->addJWTtokenToHeader("tokeen");
+    HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.requestcatcher.com/test");
 
-    if( getReq->send() == CURLE_OK);
-        std::cout << "\n[" << getReq->getResponse() << "]\n";
+    std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
+                                .addDataToHeader("some-header: well")
+                                .addJWTtokenToHeader("token")
+                                .addDataToHeader(CONTENT_TYPE_JSON)
+                                .build();
+
+    if (httpRequest->send() == CURLE_OK)
+        std::cout << "\n[" << httpRequest->getResponse() << "]\n";
+
+    HttpRequest::cleanHttpRequestsGlobal();
 
 }
