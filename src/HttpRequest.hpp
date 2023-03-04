@@ -42,8 +42,8 @@ public:
     void addDataToHeader(const std::string& data);
 
     //! @brief  Add data to Request body
-    //! @param  data data to be added to request body
-    //!         take care that data is copied
+    //! @param  data a smart pointer carries the data to be added to request body
+    //!         take care that data is not copied therefore shared pointer is needed
     void addDataToBody(const std::shared_ptr<std::string>& data);
 
     //! @brief Add JWT token to Request header

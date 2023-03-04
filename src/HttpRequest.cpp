@@ -33,8 +33,6 @@ HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
 
     //! send to url
     curl_easy_setopt(m_curlPtr, CURLOPT_URL, url.c_str());
-    // //! add header in response string
-    // curl_easy_setopt(m_curlPtr, CURLOPT_HEADER, 1L);
     //! HttpRequest::writeFunction get's called with response data
     curl_easy_setopt(m_curlPtr, CURLOPT_WRITEFUNCTION, writeFunction);
     //! data inserted inside m_responseString

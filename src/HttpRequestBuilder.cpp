@@ -1,5 +1,7 @@
 #include "HttpRequestBuilder.hpp"
 #include "GetRequestClient.hpp"
+#include "PostRequestClient.hpp"
+#include "PutRequestClient.hpp"
 #include <string>
 
 HttpRequestBuilder::HttpRequestBuilder(REQUEST_TYPE requestType, const std::string& url)
@@ -10,10 +12,10 @@ HttpRequestBuilder::HttpRequestBuilder(REQUEST_TYPE requestType, const std::stri
         m_httpRequest = std::make_unique<GetRequestClient>(url);
         break;
     case POST_REQUEST:
-        // m_httpRequest = std::make_unique<GetRequestClient>(url);
+        m_httpRequest = std::make_unique<PostRequestClient>(url);
         break;
     case PUT_REQUEST:
-        // m_httpRequest = std::make_unique<GetRequestClient>(url);
+        m_httpRequest = std::make_unique<PutRequestClient>(url);
         break;
     default:
         break;

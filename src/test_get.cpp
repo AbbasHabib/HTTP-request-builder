@@ -8,9 +8,9 @@ static constexpr char CONTENT_TYPE_JSON[] = "Content-Type: application/json";
 int main(int argc, char *argv[])
 {
 
-    HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.requestcatcher.com/test");
+    HttpRequestBuilder HttpBuilder(HttpRequestBuilder::PUT_REQUEST, "https://abbas.requestcatcher.com/test");
 
-    std::string jsonObj = "{ \"name\" : \"Pedro\" , \"age\" : \"22\" }";
+    std::string jsonObj = "{ \"name\" : \"abbas\" , \"age\" : \"55\" }";
     
     std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
                                 .addDataToHeader("Accept: application/json")
