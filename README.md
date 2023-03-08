@@ -1,5 +1,5 @@
 # HTTP-client with the smallest docker image
-A c++ HTTP Client library with the smallest docker image size ever :)
+A c++ HTTP Client library with the smallest docker image size out there :)
 
 ## How to run
 
