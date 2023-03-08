@@ -1,6 +1,17 @@
 # Vehicle-HTTP-client
 Vehicle HTTP Client library 
 
+## How to run
+
+### build docker image
+```bash
+# build image
+$ docker build -t http_requests_client_test .
+# create a container and run it
+$ docker run -d --name http_client_container http_requests_client_test:latest
+```
+
+## example code using __HttpBuilder__
 ```c++
 // builder pattern 
 // send requests with ease 
