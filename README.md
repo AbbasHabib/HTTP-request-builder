@@ -1,5 +1,5 @@
-# Vehicle-HTTP-client
-Vehicle HTTP Client library 
+# HTTP-clien with the smallest docker image
+A c++ HTTP Client library with the smallest docker image size ever :)
 
 ## How to run
 
