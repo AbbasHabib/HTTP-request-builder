@@ -43,8 +43,11 @@ HttpRequest::HttpRequest(const std::string& url) : m_curlPtr(curl_easy_init())
     curl_easy_setopt(m_curlPtr, CURLOPT_HEADERDATA, &m_responseHeaderString);
     //! curl version
     curl_easy_setopt(m_curlPtr, CURLOPT_USERAGENT, std::string(std::string("curl/") + curl_version_info(CURLVERSION_NOW)->version).c_str());
-    //! HTTP version
-    // curl_easy_setopt(m_curlPtr, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    //! enforce the verification of peer using CA
+    curl_easy_setopt(m_curlPtr, CURLOPT_SSL_VERIFYPEER, 1L);
+    //! enforce verification of peer that it's actually who it claims to be
+    curl_easy_setopt(m_curlPtr,  CURLOPT_SSL_VERIFYHOST, 1L);
+    
     m_headers = curl_slist_append(m_headers, "Accept: application/json");
     m_headers = curl_slist_append(m_headers, "Content-Type: application/json");
     m_headers = curl_slist_append(m_headers, "charset: utf-8");
