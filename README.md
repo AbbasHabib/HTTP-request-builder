@@ -35,3 +35,9 @@ if (httpRequest->send() == CURLE_OK)
     std::cout << "[" << httpRequest->getResponse() << "]\n";
 
 ```
+
+#### if you didn't use docker change in the CMake
+```cmake
+set(curl_installation_dir "<curl installation path (.so) libs path>")
+# if it's installed globally in /usr/lib you can remove this line from cmake
+```
