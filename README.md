@@ -26,7 +26,6 @@ static constexpr char IMP_HEADER_VALUE[] = "some-value";
 HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.requestcatcher.com/test");
 
 std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
-                            .addDataToHeader("some-header: well")
                             .addJWTtokenToHeader("token")
                             .addDataToHeader(IMP_HEADER_KEY, IMP_HEADER_VALUE)
                             .build();
