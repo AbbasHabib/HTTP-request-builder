@@ -1,5 +1,8 @@
 # c++ HTTP-client with the smallest docker image
 A c++ HTTP Client based on curl with the smallest docker image size out there :).
+### HTTP-request-builder
+Basically the builder handles the interactions with libcurl, all you need to do is add your HTTP request layers and send 🪃
+
 
 ## How to run
 
@@ -11,12 +14,13 @@ $ docker build -t http_requests_client_test .
 $ docker run -d --name http_client_container http_requests_client_test:latest
 ```
 
-## example code using __HttpBuilder__
+## example code using the __HttpBuilder__
 ```c++
 // builder pattern 
 // send requests with ease 
 
-static constexpr char CONTENT_TYPE_JSON[] = "Content-Type: application/json";
+static constexpr char IMP_HEADER_KEY[] = "head-key";
+static constexpr char IMP_HEADER_VALUE[] = "some-value";
 
 
 HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.requestcatcher.com/test");
@@ -24,11 +28,10 @@ HttpRequestBuilder HttpBuilder(HttpRequestBuilder::GET_REQUEST, "https://abbas.r
 std::unique_ptr<HttpRequest> httpRequest = HttpBuilder
                             .addDataToHeader("some-header: well")
                             .addJWTtokenToHeader("token")
-                            .addDataToHeader(CONTENT_TYPE_JSON)
+                            .addDataToHeader(IMP_HEADER_KEY, IMP_HEADER_VALUE)
                             .build();
 
 if (httpRequest->send() == CURLE_OK)
     std::cout << "[" << httpRequest->getResponse() << "]\n";
 
-HttpRequest::cleanHttpRequestsGlobal();
 ```
