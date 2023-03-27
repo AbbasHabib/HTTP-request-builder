@@ -6,6 +6,13 @@ Basically the builder handles the interactions with libcurl, all you need to do 
 
 ## How to run
 
+# Easy way
+```bash
+$ docker pull https://hub.docker.com/repository/docker/abbasebnfernas/curl-cpp-multiarch/general
+$ docker run -d abbasebnfernas/curl-cpp-multiarch:latest
+```
+
+# another way
 ### build docker image
 ```bash
 # build image
