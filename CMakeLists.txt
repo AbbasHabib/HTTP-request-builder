@@ -1,6 +1,6 @@
 project(test_get_curl)
 
-cmake_minimum_required(VERSION 3.16.3)
+cmake_minimum_required(VERSION 3.10)
 
 set(curl_installation_dir "/home/abbas/curl_hhtp_cpp/curl")
 
@@ -14,7 +14,7 @@ endif()
 
 
 add_executable(${PROJECT_NAME}
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/test_get.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/test_requests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/GetRequestClient.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/HttpRequestBuilder.cpp
