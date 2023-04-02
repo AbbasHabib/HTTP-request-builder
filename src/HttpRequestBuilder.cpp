@@ -1,8 +1,10 @@
+#include <string>
+#include <memory>
+#include <vector>
 #include "HttpRequestBuilder.hpp"
 #include "GetRequestClient.hpp"
 #include "PostRequestClient.hpp"
 #include "PutRequestClient.hpp"
-#include <string>
 
 HttpRequestBuilder::HttpRequestBuilder(REQUEST_TYPE requestType, const std::string& url)
 {
@@ -40,6 +42,12 @@ HttpRequestBuilder& HttpRequestBuilder::addJWTtokenToHeader(const std::string& j
 HttpRequestBuilder& HttpRequestBuilder::addDataToBody(const std::string& data)
 {
     m_httpRequest->addDataToBody(std::make_shared<std::string>(data));
+    return *this;
+}
+
+HttpRequestBuilder& HttpRequestBuilder::addDataToBody(const uint8_t* data, uint32_t size)
+{
+    m_httpRequest->addDataToBody(std::make_shared<std::string>(data, size));
     return *this;
 }
 
